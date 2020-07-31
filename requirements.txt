@@ -1,4 +1,4 @@
 beautifulsoup4==4.8.2
 numpy==1.18.1
 pytz==2019.3
-
+soupsieve==2.0.1

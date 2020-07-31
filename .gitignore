@@ -2,6 +2,9 @@
 /venv
 /__pycache__venv
 
+# Data
+/data/
+
 # Environments
 .env
 .venv
