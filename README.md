@@ -1,17 +1,13 @@
 # Jaka to melodia - What melody is it
 The aim of this project is gather in one place all song used in popular polish show "Jaka to melodia" ("What melody is it"). 
 
-Before running or changing code please read [Confluence documentation](https://adlm.nielsen.com/confluence/display/NPI/Denmark)
-
 ## Getting started
-```
 
 ## Requirements
 The required version of Python for the current release is 3.7.
 
 ### Prerequisities
 Run the code below:
-
 ```
 pip install -r \path_to\requirements.txt
 ```
