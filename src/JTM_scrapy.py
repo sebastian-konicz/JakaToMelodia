@@ -13,7 +13,6 @@ def main():
     html_main_page = BeautifulSoup(main_page.content, 'html.parser')
     links_years = html_main_page.find_all("a", class_='forumlink')
 
-
     href_years = []
     link_years = []
     for link in links_years:
@@ -85,13 +84,13 @@ def main():
         dataframe_year = dataframe_year.reset_index(inplace=False, drop=True)
         dataframe_all.append(dataframe_year)
         # saving to excel
-        dataframe_year.to_excel(r'C:\Users\kose9001\Desktop\JTM\ListaPiosenek{year}.xlsx'.format(year=year), index=False, encoding='ISO-8859-1')
+        dataframe_year.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenek{year}.xlsx'.format(year=year), index=False, encoding='ISO-8859-1')
 
     dataframe_all = pd.concat(dataframe_all)
     # reseting index
     dataframe_all = dataframe_all.reset_index(inplace=False, drop=True)
     # saving to excel
-    dataframe_all.to_excel(r'C:\Users\kose9001\Desktop\JTM\ListaPiosenekAll.xlsx', index=False, encoding='ISO-8859-1')
+    dataframe_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx', index=False, encoding='ISO-8859-1')
 
     print("Program skończył działać")
 
