@@ -1,11 +1,8 @@
-from urllib.request import urlretrieve
 from bs4 import BeautifulSoup
 import os
 import re
 import requests
 import pandas as pd
-import time
-from openpyxl import load_workbook
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
