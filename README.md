@@ -33,16 +33,15 @@ Sebastian Konicz - sebastian.konicz@gmail.com
     │   │
     │   ├── __init__.py    					<- Makes src a Python module
     │   │
-    │   ├── JTM_cleaning          			        <- Script cleaning the data scrapped from the Internet
+    │   ├── JTM_cleaning          			<- Script cleaning the data scrapped from the Internet
     │   │
-    │   ├── JTM_scrapy          			        <- Script scrapping the data from the Internet
+    │   ├── JTM_scrapy          		    <- Script scrapping the data from the Internet
     │   │
-    │   ├── JTM_deezer_API           		                <- Script updating information about artist and song
+    │   ├── JTM_deezer_API           		<- Script updating information about artist and song
     │   │	
     │   │
     │   └──  								<-  │   
     │
     └── xxxxx            					<- ?
-
 
 --------
