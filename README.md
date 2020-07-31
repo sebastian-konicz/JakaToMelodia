@@ -40,8 +40,8 @@ Sebastian Konicz - sebastian.konicz@gmail.com
     │   ├── JTM_deezer_API           		<- Script updating information about artist and song
     │   │	
     │   │
-    │   └──  								<-  │   
+    │   └──
     │
-    └── xxxxx            					<- ?
+    └── xxxxx
 
 --------
