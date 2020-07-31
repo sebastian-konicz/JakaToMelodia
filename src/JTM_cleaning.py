@@ -14,7 +14,7 @@ pd.set_option('display.max_rows', None)
 def main():
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JTM\ListaPiosenekAll.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx')
 
     # CLEANINF SONG COLUMN
     # removing key words
@@ -49,7 +49,7 @@ def main():
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JTM\ListaPiosenekAllClean.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllClean.xlsx', index=False, encoding='ISO-8859-1')
 
 # removing key words
 def key_words(song):
