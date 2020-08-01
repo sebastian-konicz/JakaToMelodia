@@ -1,10 +1,14 @@
 import re
 import pandas as pd
+import time
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 def main():
+    # start time of function
+    start_time = time.time()
+
     # loading file
     print('loading file')
     df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx')
@@ -72,6 +76,10 @@ def main():
     # saving to excel file
     print('saving file')
     df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllClean.xlsx', index=False, encoding='ISO-8859-1')
+
+    # end time of program + duration
+    end_time = time.time()
+    print('\n', int(end_time - start_time), 'sec\n')
 
 # removing key words
 def key_words(song):

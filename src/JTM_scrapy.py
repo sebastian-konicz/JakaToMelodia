@@ -3,11 +3,15 @@ import os
 import re
 import requests
 import pandas as pd
+import time
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 def main():
+    # start time of function
+    start_time = time.time()
+
     # Getti
     main_page = requests.get('http://www.jakatomelodia.fora.pl/font-color-ffcc66-listy-piosenek-z-programu-color,27/')
     html_main_page = BeautifulSoup(main_page.content, 'html.parser')
@@ -92,7 +96,9 @@ def main():
     # saving to excel
     dataframe_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx', index=False, encoding='ISO-8859-1')
 
-    print("Program skończył działać")
+    # end time of program + duration
+    end_time = time.time()
+    print('\n', int(end_time - start_time), 'sec\n')
 
 # Function getting links for all months in a given year
 def months(href_years):
