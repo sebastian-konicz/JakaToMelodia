@@ -22,8 +22,7 @@ def main():
     number_of_intervals = round(row_count / number_of_items)
     print(row_count, number_of_intervals)
 
-    dataframe_list = []
-    for value in range(0, number_of_intervals + 1):
+    for value in range(70, number_of_intervals + 1):
         if value == 0:
             truncate_before = value * number_of_items
         else:
@@ -35,9 +34,6 @@ def main():
 
         # running search on partial dataframe
         df_partial = partial_dataframe_creation(df_partial)
-
-        # adding partial dataframe to list
-        dataframe_list.append(df_partial)
 
         # saving partial dataframe to excel
         print('saving file')
