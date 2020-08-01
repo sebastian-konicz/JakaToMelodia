@@ -12,39 +12,43 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllCleanShort.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllClean.xlsx')
 
     # getting song value
     # df_all['Deezer_Song'] = df_all['Song'].map(lambda song: deezer_search_song(song))
 
+    row_count = len(df_all.index)
+    number_of_items = 100
+    number_of_intervals = round(row_count / number_of_items)
+    print(row_count, number_of_intervals)
 
-    result_list = []
+    dataframe_list = []
+    for value in range(0, number_of_intervals + 1):
+        if value == 0:
+            truncate_before = value * number_of_items
+        else:
+            truncate_before = value * number_of_items + 1
+        truncate_after = value * number_of_items + number_of_items
 
-    # running search function
-    for key, search_value in df_all['Song'].iteritems():
-        print(search_value)
-        # search function values
-        song, artist, album, link, preview = deezer_search(search_value)
-        # adding result items to list
-        result_list.append([song, artist, album, link, preview])
+        # creating partial dataframe
+        df_partial = df_all.truncate(before=truncate_before, after=truncate_after)
 
-    # creating dataframe
-    result_df = pd.DataFrame(result_list)
-    # renaming dataframe columns
-    print(result_df)
-    if result_df.empty == True:
-        pass
-    else:
-        result_df.columns = ["Deezer_Song", "Deezer_Artist", "Deezer_Album", "Deezer_Link", "Deezer_Preview"]
+        # running search on partial dataframe
+        df_partial = partial_dataframe_creation(df_partial)
 
-    # concatenating dataframes
-    df_all = pd.concat([df_all, result_df], axis=1, sort=False)
+        # adding partial dataframe to list
+        dataframe_list.append(df_partial)
 
-    print(df_all)
+        # saving partial dataframe to excel
+        print('saving file')
+        df_partial.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\interim\deezer_API\ListaPiosenek_{start}-{end}.xlsx'.format(start=truncate_before, end=truncate_after), index=False, encoding='ISO-8859-1')
+
+    # concatenating all dataframes
+    df_all_dataframes = pd.concat(dataframe_list, axis=0, sort=False)
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllDeezer.xlsx', index=False, encoding='ISO-8859-1')
+    df_all_dataframes .to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllDeezer.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
@@ -89,6 +93,31 @@ def deezer_search(search_value):
     #
     # # getting deezer preview
     # df_all['Deezer_Preview'] = df_all['Song'].map(lambda song: deezer_search_preview(song))
+
+def partial_dataframe_creation(df_all):
+    result_list = []
+    # running search function
+    for key, search_value in df_all['Song'].iteritems():
+        # search function values
+        song, artist, album, link, preview = deezer_search(search_value)
+        # adding result items to list
+        result_list.append([song, artist, album, link, preview])
+
+    # creating dataframe
+    result_df = pd.DataFrame(result_list)
+    # renaming dataframe columns
+    if result_df.empty == True:
+        pass
+    else:
+        result_df.columns = ["Deezer_Song", "Deezer_Artist", "Deezer_Album", "Deezer_Link", "Deezer_Preview"]
+
+    # reseting index
+    df_all.reset_index(drop=True, inplace=True)
+
+    # concatenating dataframes
+    df_all = pd.concat([df_all, result_df], axis=1, sort=False)
+
+    return df_all
 
 # def deezer_search_song(song):
 #     try:
