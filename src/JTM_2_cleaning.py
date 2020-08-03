@@ -11,7 +11,7 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\01_ListaPiosenekAll.xlsx')
 
     # CLEANINF SONG COLUMN
     # removing key words
@@ -75,7 +75,7 @@ def main():
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAllClean.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\02_ListaPiosenekAllClean.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
