@@ -88,13 +88,13 @@ def main():
         dataframe_year = dataframe_year.reset_index(inplace=False, drop=True)
         dataframe_all.append(dataframe_year)
         # saving to excel
-        dataframe_year.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenek{year}.xlsx'.format(year=year), index=False, encoding='ISO-8859-1')
+        dataframe_year.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\interim\01_ListaPiosenek{year}.xlsx'.format(year=year), index=False, encoding='ISO-8859-1')
 
     dataframe_all = pd.concat(dataframe_all)
     # reseting index
     dataframe_all = dataframe_all.reset_index(inplace=False, drop=True)
     # saving to excel
-    dataframe_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\ListaPiosenekAll.xlsx', index=False, encoding='ISO-8859-1')
+    dataframe_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\01_ListaPiosenekAll.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
