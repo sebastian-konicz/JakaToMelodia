@@ -6,13 +6,17 @@ from fuzzywuzzy import process
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
+# SEARCHING FOR THE CORRECT ARTIST BASED ON KNOWN SONGS
 def main():
     # start time of function
     start_time = time.time()
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekFuzzy_4Copy.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekFuzzy_4.xlsx')
+
+    # getting rid of one entry that distorts future computatuins
+    df_all.drop(df_all[df_all["Artist_correct"] == "utah symphony orchestra, the mormon tabernacle choir, frederica von stade, joseph silverstein, utah symphony orchestra, the mormon tabernacle choir and joseph silverstein"].index, inplace=True)
 
     # replacing NaN values in dataframe
     df_all["Song_correct"].fillna("", inplace=True)
@@ -27,7 +31,7 @@ def main():
     df_correct = df_all[(df_all['Song_correct'] != "") & (df_all['Artist_correct'] != "")].copy(deep=True)
     df_correct.drop(columns=['Song', 'Round', 'Date', 'Month', 'Song_split', 'Artist_split', 'Split_Concatenated'], inplace=True)
     df_correct.drop_duplicates(inplace=True, keep='first')
-    song_dict = pd.Series(df_correct["Song_correct"].values, index=df_correct["Correct_Concatenated"]).to_dict()
+    # song_dict = pd.Series(df_correct["Song_correct"].values, index=df_correct["Correct_Concatenated"]).to_dict()
     artist_dict = pd.Series(df_correct["Artist_correct"].values, index=df_correct["Correct_Concatenated"]).to_dict()
 
     # CHECKING SONG - ARTIST WITH FUZZY RATIO
@@ -40,7 +44,7 @@ def main():
         if (df_all['Artist_correct'] == "") else df_all['Artist_correct'], axis=1)
 
     # dropping unnecessary column
-    df_all.drop(columns=['Artist_correct_search'], inplace=True)
+    df_all.drop(columns=['Artist_correct_search', 'Correct_Concatenated'], inplace=True)
 
     # saving to excel file
     print('saving file')
