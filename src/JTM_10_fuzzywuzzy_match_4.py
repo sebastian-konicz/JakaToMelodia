@@ -12,7 +12,7 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\08_ListaPiosenekApi_2.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekApi_2.xlsx')
 
     # replacing NaN values in dataframe
     df_all["Song_1"].fillna("", inplace=True)
@@ -52,7 +52,7 @@ def main():
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekFuzzy_4.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\10_ListaPiosenekFuzzy_4.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
