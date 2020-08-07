@@ -13,7 +13,7 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekFuzzy_4.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\10_ListaPiosenekFuzzy_4.xlsx')
 
     # getting rid of one entry that distorts future computatuins
     df_all.drop(df_all[df_all["Artist_correct"] == "utah symphony orchestra, the mormon tabernacle choir, frederica von stade, joseph silverstein, utah symphony orchestra, the mormon tabernacle choir and joseph silverstein"].index, inplace=True)
@@ -48,7 +48,7 @@ def main():
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\10_ListaPiosenekFuzzy_5.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\11_ListaPiosenekFuzzy_5.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()

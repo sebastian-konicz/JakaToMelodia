@@ -6,6 +6,7 @@ from fuzzywuzzy import process
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
+# CHECKING SONG - ARTIST PLACEMENT FOUND IN DEEZER API WITH FUZZY RATIO
 def main():
     # start time of function
     start_time = time.time()
@@ -62,10 +63,6 @@ def main():
         df_all['Artist_correct_search'] = df_all.apply(
             lambda df_all: artist if (df_all["Artist_split"] == artist) else df_all['Artist_correct_search'], axis=1)
 
-    print('saving file - artist')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\05_ListaPiosenekFuzzy-artist.xlsx', index=False,
-                    encoding='ISO-8859-1')
-
     for song in correct_song_list:
         print(song)
         df_all['Song_correct_search'] = df_all.apply(
@@ -88,16 +85,6 @@ def fuzzy_ratio(value1, value2):
     except AttributeError:
         pass
     return result
-
-# removing key words
-def search_correct_song(search_value, correct_artist_list):
-    for correct_artist in correct_artist_list:
-        print(search_value + " + " + correct_artist)
-        if search_value == correct_artist:
-            search_value = correct_artist
-        else:
-            search_value = ""
-    return search_value
 
 if __name__ == "__main__":
     main()
