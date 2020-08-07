@@ -15,7 +15,7 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\10_ListaPiosenekFuzzy_5.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\11_ListaPiosenekFuzzy_5.xlsx')
 
     # replacing NaN values in dataframe
     df_all["Song_correct"].fillna("", inplace=True)
@@ -28,27 +28,57 @@ def main():
     # replacing NaN values in dataframe
     df_all["Correct_Concatenated"].fillna("", inplace=True)
 
-    # CHECKING SONG - ARTIST WITH FUZZY RATIO
-    df_all["Song_Artist_ratio"] = df_all.apply(
-        lambda df_all: fuzzy_ratio(df_all['Split_Concatenated'], df_all["Correct_Concatenated"]) if df_all["Correct_Concatenated"] != "" else "", axis=1)
+    # creating "database" dataframe
+    #  databese dataframe - song
+    df_correct = df_all[(df_all['Song_correct'] != "") & (df_all['Artist_correct'] != "")].copy(deep=True)
+    df_correct.drop(columns=['Song', 'Round', 'Date', 'Month', 'Song_split', 'Artist_split', 'Split_Concatenated'], inplace=True)
+    df_correct.drop_duplicates(inplace=True, keep='first')
+    song_dict = pd.Series(df_correct["Song_correct"].values, index=df_correct["Correct_Concatenated"]).to_dict()
+    artist_dict = pd.Series(df_correct["Artist_correct"].values, index=df_correct["Correct_Concatenated"]).to_dict()
 
-    # # dropping unnecessary column
-    # df_all.drop(columns=['Song_correct_search', 'Artist_correct_search', 'Correct_Concatenated'], inplace=True)
+    # CHECKING SONG - ARTIST WITH FUZZY RATIO
+    df_all["Song_correct_search"] = df_all.apply(
+        lambda df_all: fuzzy_ratio(df_all['Split_Concatenated'], song_dict)
+        if ((df_all['Song_correct'] == "") & (df_all['Artist_correct'] == "")) else "", axis=1)
+    df_all["Artist_correct_search"] = df_all.apply(
+        lambda df_all: fuzzy_ratio(df_all['Split_Concatenated'], artist_dict)
+        if ((df_all['Song_correct'] == "") & (df_all['Artist_correct'] == "")) else "", axis=1)
+
+    # coping and pasting correct song/artist value to song/artist_corect column
+    df_all['Song_correct'] = df_all.apply(lambda df_all: df_all['Song_correct_search']
+        if (df_all['Song_correct'] == "") else df_all['Song_correct'], axis=1)
+    df_all['Artist_correct'] = df_all.apply(lambda df_all: df_all['Artist_correct_search']
+        if (df_all['Artist_correct'] == "") else df_all['Artist_correct'], axis=1)
+
+    # dropping unnecessary column
+    df_all.drop(columns=['Song_correct_search', 'Artist_correct_search', 'Correct_Concatenated'], inplace=True)
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\12_ListaPiosenekFuzzy_7.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\12_ListaPiosenekFuzzy_6.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
     print('\n', int(end_time - start_time), 'sec\n')
 
 
+
 # removing key words
-def fuzzy_ratio(value_1, value_2):
-    ratio = fuzz.token_sort_ratio(value_1, value_2)
-    print(ratio)
-    return ratio
+def fuzzy_ratio(split, dictionary):
+    ratio_dict = {}
+    for key, value in dictionary.items():
+        ratio = fuzz.token_sort_ratio(key, split)
+        ratio_dict[value] = ratio
+    search_value = max(ratio_dict, key=ratio_dict.get)
+    search_valie_ratio = ratio_dict[search_value]
+    if search_valie_ratio > 85:
+        print(ratio_dict)
+        print(split)
+        print(search_value)
+        print(search_valie_ratio)
+        return search_value
+    else:
+        pass
 if __name__ == "__main__":
     main()
 

@@ -17,11 +17,30 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\12_ListaPiosenekFuzzy_7.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\05_ListaPiosenekFuzzy.xlsx')
 
     # replacing NaN values in dataframe
     df_all["Song_correct"].fillna("", inplace=True)
     df_all["Artist_correct"].fillna("", inplace=True)
+    df_all["Song_correct_search"].fillna("", inplace=True)
+    df_all["Artist_correct_search"].fillna("", inplace=True)
+
+    # getting correct song/ artist values
+    df_all["Song_correct"] = df_all.apply(
+        lambda df_all: df_all["Song_correct"] if (df_all["Song_correct"] != "") else df_all["Song_correct_search"], axis=1)
+    df_all["Artist_correct"] = df_all.apply(
+        lambda df_all: df_all["Artist_correct"] if (df_all["Artist_correct"] != "") else df_all["Artist_correct_search"], axis=1)
+
+    # droping unnecessary columns
+    df_all.drop(columns=['Song_correct_search', 'Artist_correct_search'], inplace=True)
+
+    # replacing NaN values in dataframe
+    df_all["Song_split"].fillna("", inplace=True)
+    df_all["Artist_split"].fillna("", inplace=True)
+
+    # creating new column with concatenated values from song_correct and artist_correct
+    df_all["Split_Concatenated"] = df_all.apply(
+        lambda df_all: (str(df_all['Song_split']) + " " + str(df_all['Artist_split'])), axis=1)
 
     # running search on dataframe
     df_all["Search_1"] = df_all.apply(
@@ -29,15 +48,16 @@ def main():
                     (df['Song_correct'] == "") | (df['Artist_correct'] == "")) else "", axis=1)
 
     # unpacking tuple form first search
-    df_all["Song_1"] = df_all.apply(
+    df_all["Song_correct_search"] = df_all.apply(
         lambda df: df['Search_1'][1] if ((df['Song_correct'] == "") | (df['Artist_correct'] == "")) else "", axis=1)
-    df_all["Artist_1"] = df_all.apply(
+    df_all["Artist_correct_search"] = df_all.apply(
         lambda df: df['Search_1'][0] if ((df['Song_correct'] == "") | (df['Artist_correct'] == "")) else "", axis=1)
 
+    # dropping unnecessary columns
     df_all.drop(columns=["Search_1"], inplace=True)
 
     # cleaning data in columns concerning Song_{number} and Artist_{number}
-    column_list = ["Song_1", "Artist_1", ]
+    column_list = ["Song_correct_search", "Artist_correct_search", ]
     for column in column_list:
         # cleaning row value from words in bracets
         df_all[column] = df_all[column].map(lambda row_value: strippping_bracets_words(row_value))
@@ -46,13 +66,12 @@ def main():
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\13_ListaPiosenekApi_3.xlsx', index=False,
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\06_ListaPiosenekAPI.xlsx', index=False,
                     encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
     print('\n', int(end_time - start_time), 'sec\n')
-
 
 def lastfm_search(search_value):
     try:

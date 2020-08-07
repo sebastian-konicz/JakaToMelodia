@@ -23,7 +23,7 @@ def main():
     number_of_intervals = round(row_count / number_of_items)
     print(row_count, number_of_intervals)
 
-    for value in range(73, number_of_intervals + 1):
+    for value in range(0, number_of_intervals + 1):
         if value == 0:
             truncate_before = value * number_of_items
         else:
