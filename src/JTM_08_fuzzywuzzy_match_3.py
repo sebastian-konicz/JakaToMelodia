@@ -6,7 +6,7 @@ from fuzzywuzzy import process
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-# SEARCHING FOR THE CORRECT ARTIST BASED ON KNOWN SONGS
+# SEARCHING FOR THE CORRECT ARTIST BASED ON KNOWN ARTISTS
 def main():
     # start time of function
     start_time = time.time()
@@ -41,8 +41,8 @@ def main():
     df_all['Artist_correct'] = df_all.apply(lambda df_all: df_all['Artist_correct_search']
         if (df_all['Artist_correct'] == "") else df_all['Artist_correct'], axis=1)
 
-    # # dropping unnecessary column
-    # df_all.drop(columns=['Artist_correct_search', 'Correct_Concatenated'], inplace=True)
+    # dropping unnecessary column
+    df_all.drop(columns=['Artist_correct_search', 'Correct_Concatenated'], inplace=True)
 
     # saving to excel file
     print('saving file')

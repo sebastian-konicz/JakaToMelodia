@@ -15,7 +15,7 @@ def main():
 
     # loading file
     print('loading file')
-    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\11_ListaPiosenekFuzzy_5.xlsx')
+    df_all = pd.read_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\08_ListaPiosenekFuzzy_3.xlsx')
 
     # replacing NaN values in dataframe
     df_all["Song_correct"].fillna("", inplace=True)
@@ -44,24 +44,22 @@ def main():
         lambda df_all: fuzzy_ratio(df_all['Split_Concatenated'], artist_dict)
         if ((df_all['Song_correct'] == "") & (df_all['Artist_correct'] == "")) else "", axis=1)
 
-    # coping and pasting correct song/artist value to song/artist_corect column
-    df_all['Song_correct'] = df_all.apply(lambda df_all: df_all['Song_correct_search']
-        if (df_all['Song_correct'] == "") else df_all['Song_correct'], axis=1)
-    df_all['Artist_correct'] = df_all.apply(lambda df_all: df_all['Artist_correct_search']
-        if (df_all['Artist_correct'] == "") else df_all['Artist_correct'], axis=1)
-
-    # dropping unnecessary column
-    df_all.drop(columns=['Song_correct_search', 'Artist_correct_search', 'Correct_Concatenated'], inplace=True)
+    # # coping and pasting correct song/artist value to song/artist_corect column
+    # df_all['Song_correct'] = df_all.apply(lambda df_all: df_all['Song_correct_search']
+    #     if (df_all['Song_correct'] == "") else df_all['Song_correct'], axis=1)
+    # df_all['Artist_correct'] = df_all.apply(lambda df_all: df_all['Artist_correct_search']
+    #     if (df_all['Artist_correct'] == "") else df_all['Artist_correct'], axis=1)
+    #
+    # # dropping unnecessary column
+    # df_all.drop(columns=['Song_correct_search', 'Artist_correct_search', 'Correct_Concatenated'], inplace=True)
 
     # saving to excel file
     print('saving file')
-    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\12_ListaPiosenekFuzzy_6.xlsx', index=False, encoding='ISO-8859-1')
+    df_all.to_excel(r'C:\Users\kose9001\Desktop\JakaToMelodia\data\processed\09_ListaPiosenekFuzzy_4.xlsx', index=False, encoding='ISO-8859-1')
 
     # end time of program + duration
     end_time = time.time()
     print('\n', int(end_time - start_time), 'sec\n')
-
-
 
 # removing key words
 def fuzzy_ratio(split, dictionary):
