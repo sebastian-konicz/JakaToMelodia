@@ -6,6 +6,7 @@ from fuzzywuzzy import process
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
+# CHEKING SONG_1 ATRIST_1 COLUMNS WITH FUZZY RATIO
 def main():
     # start time of function
     start_time = time.time()
