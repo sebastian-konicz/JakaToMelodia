@@ -5,7 +5,7 @@ import time
 import selenium
 from googleapiclient.discovery import build
 
-PATH = 
+PATH = 'C:\Users\kose9001\Desktop\JTM'
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
