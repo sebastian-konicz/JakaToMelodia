@@ -43,7 +43,7 @@ def main():
         df_partial["Artist_1"] = df_partial['Search_1'].apply(lambda df: df[0])
         df_partial["Song_1"] = df_partial['Search_1'].apply(lambda df: df[1])
 
-        # unpacking tuple form first search
+        # unpacking tuple form second search
         df_partial["Artist_2"] = df_partial['Search_2'].apply(lambda df: df[1])
         df_partial["Song_2"] = df_partial['Search_2'].apply(lambda df: df[0])
 
