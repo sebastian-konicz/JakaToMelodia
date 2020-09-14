@@ -2,6 +2,9 @@
 /venv
 /__pycache__venv
 
+# Config
+JTM_0_config.py
+
 # Data
 /data/
 
