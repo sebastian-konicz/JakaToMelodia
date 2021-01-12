@@ -1,0 +1,24 @@
+05_ListaPiosenekFuzzy
+song - artist pairs	- 26800
+songs without artist	- 0
+artist without songs	- 0
+
+06_ListaPiosenekAPI
+song - artist pairs	- 29165
+songs without artist	- 4302
+artist without songs	- 5768
+
+07_ListaPiosenekFuzzy_2
+song - artist pairs	- 41617
+songs without artist	- 1573
+artist without songs	- 994
+
+08_ListaPiosenekFuzzy_3
+song - artist pairs	- 43190
+songs without artist	- 0
+artist without songs	- 994
+
+09_ListaPiosenekFuzzy_4
+song - artist pairs	- 43765 
+songs without artist	- 404
+artist without songs	- 1068
